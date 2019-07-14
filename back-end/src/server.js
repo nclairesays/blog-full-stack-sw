@@ -10,8 +10,25 @@ app.use(bodyParser.json())
 // 2) we can now define endpoints and actions when endpoints are hit
 
 // 2.1) send a response back; res.send('BODY RESPONSE')
-app.get('/hello', (req, res) => (res.send('Hello! THis is in the response.Will show up in body of html.')))
-app.post('/hello', (req, res) => res.send(`HELLO, ${req.body.name}!`))
+// app.get('/hello', (req, res) => (res.send('Hello! THis is in the response.Will show up in body of html.')))
+// app.get('/hello/:name', (req, res) => res.send(`Hello ${req.params.name}`))
+// app.post('/hello', (req, res) => res.send(`HELLO, ${req.body.name}!`))
+
+
+// 4) use temp data, ability to upvote article
+const articlesInfo = {
+    'learn-react': { upvote: 0 },
+    'learn-node': { upvote: 0 },
+    'my-thoughts-on-resumes': { upvote: 0 }
+} 
+
+app.post('/api/articles/:name/upvote', (req, res) => {
+    const articleName = req.params.name;
+    const upvoteCount = articlesInfo[articleName].upvote += 1;
+    res.status(200).send(`${articleName} now has ${upvoteCount} upvoes`)
+})
+
+
 
 // 3) need to start the server
 app.listen(8000, () => console.log('Listening on port 8000'))
