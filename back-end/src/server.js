@@ -17,9 +17,9 @@ app.use(bodyParser.json())
 
 // 4) use temp data, ability to upvote article
 const articlesInfo = {
-    'learn-react': { upvote: 0 },
-    'learn-node': { upvote: 0 },
-    'my-thoughts-on-resumes': { upvote: 0 }
+    'learn-react': { upvote: 0, comments: [] },
+    'learn-node': { upvote: 0, comments: [] },
+    'my-thoughts-on-resumes': { upvote: 0, comments: [] }
 } 
 
 app.post('/api/articles/:name/upvote', (req, res) => {
@@ -28,6 +28,13 @@ app.post('/api/articles/:name/upvote', (req, res) => {
     res.status(200).send(`${articleName} now has ${upvoteCount} upvoes`)
 })
 
+app.post('/api/articles/:name/add-comment', (req, res) => {
+    const { username, text } = req.body;
+    const articleName = req.params.name;
+
+    articlesInfo[articleName].comments.push({ username, text })
+    res.status(200).send(articlesInfo[articleName])
+})
 
 
 // 3) need to start the server
