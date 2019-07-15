@@ -18,3 +18,34 @@
 
 * sending a status code
 ``` res.status(200).send('body response') ```
+
+
+## MongoDB
+Go to...
+``` C:\Program Files\MongoDB\Server\4.0\bin  ```
+1) Run... mongod
+2) New terminal, run... mongo
+
+Some commands:
+* show dbs
+* use mylib  -- this wil switch to the mylib db, but won't show anything unless there's data
+* db.books.insert({"name": "mongod book"})
+* show collections
+* db.books.find()
+
+EXAMPLE:
+in command line, create an articles collection and insert data...
+``` 
+use tutorial-my-blog
+db.articles.insert([{
+... name: 'learn-react', upvote: 0, comments: [] },
+... { name: 'learn-node', upvote:0, comments: [] },
+... { name: 'my-thoughts-on-resumes', upvote: 0, comments: [] }])
+```
+
+These will print/find the object:
+db.articles.find({}).pretty()
+db.articles.find({name: 'learn-react'}).pretty()
+db.articles.findOne({name: 'learn-react'})
+
+
